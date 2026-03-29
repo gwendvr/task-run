@@ -1,7 +1,6 @@
 # Task Run API
 
-> Projet de démonstration de Spring Boot et Java réalisé pour des étudiants.
-Une API REST de gestion de tâches construite avec Spring Boot et déployée sur Render.
+> Projet de démonstration de Spring Boot et Java réalisé pour des étudiants : une API REST de gestion de tâches et déployée sur Render.
 
 ## 🛠 Stack technique
 
