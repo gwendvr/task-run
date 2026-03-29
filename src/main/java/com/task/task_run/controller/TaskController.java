@@ -1,4 +1,4 @@
-package com.task.task_run;
+package com.task.task_run.controller;
 
 import java.util.List;
 
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.task.task_run.model.Task;
+import com.task.task_run.service.TaskService;
 
 @RestController
 @RequestMapping("/tasks")
