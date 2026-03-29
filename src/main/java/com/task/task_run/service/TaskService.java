@@ -1,8 +1,11 @@
-package com.task.task_run;
+package com.task.task_run.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.task.task_run.model.Task;
+import com.task.task_run.repository.TaskRepository;
 
 @Service
 public class TaskService {

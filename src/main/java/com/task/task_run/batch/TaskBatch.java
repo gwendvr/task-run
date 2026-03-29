@@ -1,10 +1,13 @@
-package com.task.task_run;
+package com.task.task_run.batch;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.task.task_run.model.Task;
+import com.task.task_run.repository.TaskRepository;
 
 @Component
 public class TaskBatch {
