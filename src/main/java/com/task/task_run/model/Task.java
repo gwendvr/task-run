@@ -3,6 +3,7 @@ package com.task.task_run.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,9 +23,11 @@ public class Task {
     private LocalDate dueDate;
     private Priorite priorite;
 
+    @Column(name = "client_id")
+    private String clientId;
+
     @ManyToMany
     private List<Tag> tags;
-
 
     public String getTitle() {
         return title;
@@ -80,6 +83,14 @@ public class Task {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
 }
