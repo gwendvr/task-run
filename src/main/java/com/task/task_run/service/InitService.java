@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.task.task_run.model.Badge;
+import com.task.task_run.model.Priorite;
 import com.task.task_run.model.Task;
 import com.task.task_run.model.User;
 import com.task.task_run.repository.BadgeRepository;
@@ -28,7 +29,7 @@ public class InitService {
         if (userRepository.findByClientId(clientId).isPresent()) return;
 
         // Créer les 2 badges de départ s'ils n'existent pas encore
-        Badge badge1 = badgeRepository.findByName("Bienvenue")
+        Badge badge1 = badgeRepository.findByNom("Bienvenue")
             .orElseGet(() -> {
                 Badge b = new Badge();
                 b.setNom("Bienvenue");
@@ -40,7 +41,7 @@ public class InitService {
                 return badgeRepository.save(b);
             });
 
-        Badge badge2 = badgeRepository.findByName("Première tâche")
+        Badge badge2 = badgeRepository.findByNom("Première tâche")
             .orElseGet(() -> {
                 Badge b = new Badge();
                 b.setNom("Première tâche");
@@ -48,6 +49,18 @@ public class InitService {
                 b.setIcone("✅");
                 b.setXpCondition(0);
                 b.setStreakCondition(0);
+                b.setLevelCondition(0);
+                return badgeRepository.save(b);
+            });
+
+        Badge badge3 = badgeRepository.findByNom("5 jours de suite")
+            .orElseGet(() -> {
+                Badge b = new Badge();
+                b.setNom("5 jours de suite");
+                b.setDescription("Tu as complété 5 jours de suite !");
+                b.setIcone("5️⃣");
+                b.setXpCondition(0);
+                b.setStreakCondition(5);
                 b.setLevelCondition(0);
                 return badgeRepository.save(b);
             });
@@ -66,7 +79,7 @@ public class InitService {
         Task task = new Task();
         task.setTitle("Bienvenue sur Task Run ! 🎉");
         task.setDescription("Complète cette tâche pour gagner tes premiers XP !");
-        task.setStatut("EN_COURS");
+        task.setPriorite(Priorite.MOYENNE);
         task.setClientId(clientId);
         taskRepository.save(task);
     }

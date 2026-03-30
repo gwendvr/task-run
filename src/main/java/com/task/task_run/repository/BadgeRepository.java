@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.task.task_run.model.Badge;
 
 public interface BadgeRepository extends JpaRepository<Badge, Long> {
-    Optional<Badge> findByName(String name);
+    Optional<Badge> findByNom(String name);
 }
