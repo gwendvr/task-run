@@ -2,6 +2,7 @@ package com.task.task_run.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,32 +15,44 @@ import org.springframework.web.bind.annotation.RestController;
 import com.task.task_run.model.Task;
 import com.task.task_run.service.TaskService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
-     private final TaskService taskService;
+
+    private final TaskService taskService;
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
+    private String getClientId(HttpServletRequest request) {
+        String clientId = request.getHeader("X-Client-Id");
+        if (clientId == null || clientId.isBlank()) {
+            throw new RuntimeException("Missing X-Client-Id header");
+        }
+        return clientId;
+    }
+
     @GetMapping
-    public List<Task> recoverAll() {
-        return taskService.recoverAll();
+    public List<Task> recoverAll(HttpServletRequest request) {
+        return taskService.recoverAll(getClientId(request));
     }
 
     @PostMapping
-    public Task create(@RequestBody Task task) {
-        return taskService.create(task);
+    public Task create(@RequestBody Task task, HttpServletRequest request) {
+        return taskService.create(task, getClientId(request));
     }
 
     @PutMapping("/{id}")
-    public Task modify(@PathVariable Long id, @RequestBody Task task) {
-        return taskService.modify(id, task);
+    public ResponseEntity<Task> modify(@PathVariable Long id, @RequestBody Task task, HttpServletRequest request) {
+        return ResponseEntity.ok(taskService.modify(id, task, getClientId(request)));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        taskService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id, HttpServletRequest request) {
+        taskService.delete(id, getClientId(request));
+        return ResponseEntity.noContent().build();
     }
 }
