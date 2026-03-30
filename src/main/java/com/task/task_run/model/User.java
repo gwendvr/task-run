@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,9 @@ public class User {
     private int level;
     private int streak;
     private LocalDate lastConnectionDate;
+
+    @Column(name = "client_id")
+    private String clientId;
 
     @ManyToMany
     private List<Badge> badges = new ArrayList<>();
@@ -83,5 +87,13 @@ public class User {
     public void setBadges(List<Badge> badges) {
         this.badges = badges;
     }
-    
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
 }

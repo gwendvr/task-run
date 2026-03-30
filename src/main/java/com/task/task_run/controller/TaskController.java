@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.task_run.model.Task;
+import com.task.task_run.service.InitService;
 import com.task.task_run.service.TaskService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,9 +23,11 @@ import jakarta.servlet.http.HttpServletRequest;
 public class TaskController {
 
     private final TaskService taskService;
+    private final InitService initService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, InitService initService) {
         this.taskService = taskService;
+        this.initService = initService;
     }
 
     private String getClientId(HttpServletRequest request) {
@@ -37,7 +40,9 @@ public class TaskController {
 
     @GetMapping
     public List<Task> recoverAll(HttpServletRequest request) {
-        return taskService.recoverAll(getClientId(request));
+        String clientId = getClientId(request);
+        initService.initClientIfNeeded(clientId);
+        return taskService.recoverAll(clientId);
     }
 
     @PostMapping
